@@ -22,16 +22,54 @@ var _ = require('underbar');
  */
 
 var maleCount = function(array) {
-
+    let males = _.filter(array, (customer) => customer.gender === 'male');
+    return males.length;
 };
 
-var femaleCount;
+var femaleCount = function(array) {
+    let females = _.reduce(array, function(acc, current) {
+        if (current.gender === 'female') {
+            return acc + 1;
+        } else {
+            return acc;
+        }
+    }, 0);
+    return females;
+}
 
-var oldestCustomer;
+var oldestCustomer = function(array) {
+    let oldest = _.reduce(array, function(acc, current){
+        if (acc === null || current.age > acc.age) {
+            return current;
+        } else {
+            return acc;
+        }
+    })
+    return oldest.name;
+}
 
-var youngestCustomer;
+var youngestCustomer = function(array) {
+    let youngest = _.reduce(array, function(acc, current){
+        if (acc === null || current.age < acc.age) {
+            return current;
+        } else {
+            return acc;
+        }
+    })
+    return youngest.name;
+}
 
-var averageBalance;
+var averageBalance = function(array) {
+    let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    // Remove $ and commas, then convert to a number
+    let number = parseFloat(array[i].balance.replace(/[\$,]/g, ''));
+    sum += number;
+  }
+  // Calculate average
+  let average = sum / array.length;
+  return average;
+};
 
 var firstLetterCount;
 
